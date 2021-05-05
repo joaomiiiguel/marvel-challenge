@@ -1,40 +1,52 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
+import IconButton from '@material-ui/core/IconButton';
 
-export default function Cards({ key, avatarImg, name, comics, events, series }) {
+
+export default function Cards({ keyID, avatarImg, name, comics, events, series, listFav }) {
     const [likeState, setLikeState] = useState(false);
+    const [idFav, setIdFav] = useState('');
 
+    function clickFavIcon() {
+        setLikeState(!likeState);
+        setIdFav(keyID)
+        console.log(idFav)
+
+        listFav.push(idFav)
+    }
+
+    useEffect(() => {
+
+    })
 
     return (
-        <div className="containerCard" key={key}>
+        <div className="containerCard" key={keyID}>
             <div className="columnCard">
-                <p className="placeholder">Favorite</p>
-                <a
-                    onClick={async (e) => {
-                        setLikeState(!likeState);
-                    }}>
+                <p className="placeholder" style={{padding: 0}}>Favorito</p>
+                <IconButton aria-label="fav" color="secondary" className="buttonFav" onClick={() => clickFavIcon()}>
 
                     {likeState ? (
-                        <MdFavorite size={30} />
+                        <MdFavorite size={30}  />
                     ) : (
                         <MdFavoriteBorder size={30} />
                     )}
-                </a>
+                </IconButton>
 
             </div>
             <div className="columnCard">
                 <img className="avatar-img" src={avatarImg} alt="avata do person" />
             </div>
             <div className="columnCard">
-                <p className="placeholder">Name</p>
+                <p className="placeholder">Personagem</p>
                 <h4>{name}</h4>
+
             </div>
             <div className="columnCard">
-                <p className="placeholder">Comics</p>
+                <p className="placeholder">Quadrinhos</p>
                 <h4>{comics}</h4>
             </div>
             <div className="columnCard">
-                <p className="placeholder">Events</p>
+                <p className="placeholder">Eventos</p>
                 <h4>{events}</h4>
             </div>
             <div className="columnCard">
